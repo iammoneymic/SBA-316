@@ -3,9 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mic WebSite</title>
+    <style>
+    
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
+
+    <h1>Welcome to Mic's Website</h1>
+
+    <form id="userForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required>
+        <span id="firstNameError" class="error"></span>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required>
+        <span id="lastNameError" class="error"></span>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
     
+        const userForm = document.getElementById('userForm');
+        const firstNameInput = document.querySelector('#firstName');
+        const lastNameInput = document.querySelector('#lastName');
+        const firstNameError = document.getElementById('firstNameError');
+        const lastNameError = document.getElementById('lastNameError');
+
+
+        const formChildren = userForm.children;
+        const firstChild = formChildren[0];
+        const lastChild = formChildren[formChildren.length - 1];
+
+        
+        for (let i = 0; i < formChildren.length; i++) {
+            console.log(formChildren[i]);
+        }
+
+        const newElement = document.createElement('p');
+        newElement.textContent = 'This is a new element';
+
+        userForm.appendChild(newElement);
+
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < 3; i++) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Item ${i + 1}`;
+            fragment.appendChild(listItem);
+        }
+        document.getElementById('userForm').appendChild(fragment.cloneNode(true));
+
+       
+        function submitForm() {
+            firstNameError.textContent = '';
+            lastNameError.textContent = '';
+
+            if (firstNameInput.value === '') {
+                firstNameError.textContent = 'First name is required';
+                return;
+            }
+
+            if (lastNameInput.value === '') {
+                lastNameError.textContent = 'Last name is required';
+                return;
+            }
+
+            newElement.style.color = 'blue';
+
+            newElement.setAttribute('data-custom', 'example');
+
+           
+            firstChild.addEventListener('click', () => alert('First child clicked'));
+            lastChild.addEventListener('mouseover', () => alert('Last child hovered'));
+        }
+    </script>
 </body>
 </html>
